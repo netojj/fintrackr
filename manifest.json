@@ -1,0 +1,49 @@
+{
+    "name": "FinTrackr",
+    "short_name": "FinTrackr",
+    "description": "Controle Financeiro Pessoal",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f0f14",
+    "theme_color": "#6366f1",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "fintrackr_logo_1772046881316.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "fintrackr_logo_1772046881316.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Nova Transação",
+            "short_name": "Nova",
+            "description": "Adicionar nova transação",
+            "url": "/?action=new-transaction",
+            "icons": [
+                {
+                    "src": "fintrackr_logo_1772046881316.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Ver Cartões",
+            "short_name": "Cartões",
+            "description": "Meus cartões de crédito",
+            "url": "/?tab=cartoes",
+            "icons": [
+                {
+                    "src": "fintrackr_logo_1772046881316.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}
