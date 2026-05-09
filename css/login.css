@@ -1,0 +1,273 @@
+/* ═══════════════════════════════════════════════════
+   FinTrackr — Login Page
+   Premium glassmorphism login with aurora background
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Login Overlay ─── */
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: #06060a;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Aurora Mesh Background ─── */
+.login-aurora {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.login-aurora .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: loginOrbFloat 8s ease-in-out infinite;
+}
+
+.login-aurora .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.18), transparent 70%);
+    top: -120px;
+    left: -100px;
+}
+
+.login-aurora .orb-2 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.14), transparent 70%);
+    bottom: -100px;
+    right: -80px;
+    animation-delay: -4s;
+    animation-direction: reverse;
+}
+
+.login-aurora .orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.08), transparent 70%);
+    top: 45%;
+    left: 55%;
+    animation-duration: 6s;
+}
+
+/* Animated gradient line */
+.login-aurora .aurora-line {
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 300%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(124, 58, 237, 0.3) 25%, 
+        rgba(99, 102, 241, 0.4) 50%, 
+        rgba(34, 211, 238, 0.3) 75%, 
+        transparent 100%);
+    animation: auroraLineSweep 8s linear infinite;
+    transform: rotate(-5deg);
+    opacity: 0.4;
+}
+
+/* ─── Login Glass Card ─── */
+.login-card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    background: rgba(14, 14, 22, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 28px;
+    padding: 52px 44px 44px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 
+        0 24px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    animation: loginCardIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+}
+
+/* ─── Logo in Login ─── */
+.login-logo {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 24px;
+    position: relative;
+}
+
+.login-logo svg {
+    width: 84px;
+    height: 84px;
+    filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
+}
+
+.login-logo .logo-halo {
+    position: absolute;
+    inset: -8px;
+    border-radius: 22px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%);
+    animation: haloBreath 3s ease-in-out infinite;
+}
+
+/* ─── Brand Name ─── */
+.login-brand {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #f0f0f5 0%, #c4b5fd 50%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.login-tagline {
+    font-size: 13px;
+    color: #6b6b80;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+}
+
+/* ─── Google Button ─── */
+.login-btn-google {
+    width: 100%;
+    padding: 15px 24px;
+    font-size: 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a2e;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: inherit;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn-google::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(99, 102, 241, 0.3), rgba(34, 211, 238, 0.2));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.login-btn-google:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.login-btn-google:hover::before {
+    opacity: 1;
+}
+
+.login-btn-google:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.login-status {
+    font-size: 11px;
+    color: #6b6b80;
+    margin-top: 14px;
+    min-height: 16px;
+    transition: color 0.3s;
+}
+
+/* ─── Features Row ─── */
+.login-features {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.login-feature {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.login-feature:hover .login-feature-icon {
+    transform: scale(1.1);
+}
+
+.login-feature-icon.purple {
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+.login-feature-icon.green {
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.12);
+}
+
+.login-feature-icon.amber {
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.12);
+}
+
+.login-feature p {
+    font-size: 11px;
+    color: #6b6b80;
+    line-height: 1.3;
+}
+
+/* ─── Keyframes ─── */
+@keyframes loginOrbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(25px, -15px) scale(1.08); }
+}
+
+@keyframes auroraLineSweep {
+    from { transform: rotate(-5deg) translateX(-33%); }
+    to { transform: rotate(-5deg) translateX(0%); }
+}
+
+@keyframes loginCardIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes haloBreath {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}

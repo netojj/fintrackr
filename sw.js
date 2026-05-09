@@ -1,16 +1,36 @@
-const CACHE_NAME = 'fintrackr-v3';
+const CACHE_NAME = 'fintrackr-v11';
 const ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json',
+  '/manifest.json?v=10',
   '/sw.js',
   '/firebase-config.js',
-  '/fintrackr_logo_1772046881316.png'
+  '/css/styles.css?v=8',
+  '/css/splash.css?v=8',
+  '/css/login.css?v=8',
+  '/js/utils.js?v=8',
+  '/js/components.js?v=8',
+  '/js/calc.js?v=8',
+  '/js/dashboard-funcs.js?v=8',
+  '/js/app.js?v=8',
+  '/js/splash.js?v=8',
+  '/fintrackr_icon_v9.png'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => {
+      return Promise.all(
+        ASSETS.map(url => {
+          return fetch(url, { cache: 'reload' })
+            .then(res => {
+              if (!res.ok) throw new Error('Fetch failed for ' + url);
+              return cache.put(url, res);
+            })
+            .catch(err => console.error('SW cache error for', url, err));
+        })
+      );
+    })
   );
   self.skipWaiting(); // Força o novo SW a assumir o controle imediatamente
 });
@@ -54,14 +74,14 @@ self.addEventListener('fetch', e => {
         const clone = res.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
         return res;
-      }).catch(() => caches.match(e.request))
+      }).catch(() => caches.match(e.request, { ignoreSearch: true }))
     );
     return;
   }
 
   // Outros Assets Locais: Stale-While-Revalidate
   e.respondWith(
-    caches.match(e.request).then(cached => {
+    caches.match(e.request, { ignoreSearch: true }).then(cached => {
       const net = fetch(e.request).then(res => {
         if (res.status === 200) {
           const clone = res.clone();
