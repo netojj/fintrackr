@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinTrackr</title>
-    <link rel="manifest" href="manifest.json?v=10">
+    <link rel="manifest" href="manifest.json?v=20">
     <meta name="theme-color" content="#06060a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,7 +17,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Previne o vazamento/flash do Dashboard antes ou durante a Splash Screen */
         body:not(.app-ready) .sidebar,
@@ -27,14 +27,14 @@
             opacity: 0 !important;
         }
     </style>
-    <link rel="stylesheet" href="css/styles.css?v=8">
-    <link rel="stylesheet" href="css/splash.css?v=8">
-    <link rel="stylesheet" href="css/login.css?v=8">
-    <script src="js/splash.js?v=9" defer></script>
+    <link rel="stylesheet" href="css/styles.css?v=20">
+    <link rel="stylesheet" href="css/splash.css?v=20">
+    <link rel="stylesheet" href="css/login.css?v=20">
+    <script src="js/splash.js?v=20" defer></script>
     <script>
-        // Nuclear cache clear for v11 PWA update
-        if (!localStorage.getItem('fintrackr_v11_cleared')) {
-            localStorage.setItem('fintrackr_v11_cleared', '1');
+        // Nuclear cache clear for v20 PWA update
+        if (!localStorage.getItem('fintrackr_v20_cleared')) {
+            localStorage.setItem('fintrackr_v20_cleared', '1');
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistrations().then(function(r) {
                     if (r.length > 0) {
@@ -83,6 +83,12 @@
             <!-- Brand Name Unified -->
             <div class="splash-text-wrap">
                 <div class="splash-text">FinTrackr</div>
+            </div>
+            
+            <!-- Shimmer/Skeleton Loading Mockup -->
+            <div class="splash-shimmer-mockup" style="margin-top: 40px; display: flex; flex-direction: column; gap: 12px; width: 180px; align-items: center; opacity: 0.65;">
+                <div class="shimmer" style="width: 130px; height: 10px; border-radius: 5px;"></div>
+                <div class="shimmer" style="width: 80px; height: 6px; border-radius: 3px; opacity: 0.5;"></div>
             </div>
         </div>
     </div>
@@ -243,7 +249,7 @@
                         <circle cx="12" cy="12" r="3" />
                     </svg>
                 </button>
-                <button class="bi" id="themeBtn" title="Tema" onclick="App.toggleTheme()"
+                 <button class="bi hide-mobile" id="themeBtn" title="Tema" onclick="App.toggleTheme()"
                     style="width:26px;height:26px">
                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -263,7 +269,7 @@
                 <div id="userBadge" style="display:none" class="flex items-center gap-2">
                     <img id="userAvatar" src=""
                         style="width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border)" alt="">
-                    <button class="bi" title="Sair" onclick="App.logout()" style="width:26px;height:26px"><svg
+                    <button class="bi hide-mobile" title="Sair" onclick="App.logout()" style="width:26px;height:26px"><svg
                             width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
@@ -323,10 +329,10 @@
                             <div class="mobile-collapsible flex-1 flex flex-col min-h-0">
                                 <button class="mobile-collapse-toggle"
                                     onclick="this.parentElement.classList.toggle('open')">
-                                    <span>Composição</span><svg class="chv-collapse" width="12" height="12" fill="none"
+                                    <span>Pra onde vai seu dinheiro?</span><svg class="chv-collapse" width="12" height="12" fill="none"
                                         stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path d="M9 5l7 7-7 7" />
-                                    </svg>
+                                      </svg>
                                 </button>
                                 <div class="mobile-collapse-content flex-1 flex flex-col min-h-0">
                                     <div class="card card-sm min-w-0" id="dBreak"></div>
@@ -335,7 +341,7 @@
                             <div class="mobile-collapsible flex-1 flex flex-col min-h-0">
                                 <button class="mobile-collapse-toggle"
                                     onclick="this.parentElement.classList.toggle('open')">
-                                    <span>Perfil de Gastos</span><svg class="chv-collapse" width="12" height="12"
+                                    <span>Saúde Financeira</span><svg class="chv-collapse" width="12" height="12"
                                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path d="M9 5l7 7-7 7" />
                                     </svg>
@@ -1144,6 +1150,39 @@
                     style="color:var(--sub);text-transform:uppercase;letter-spacing:.5px">Limites por Categoria</p>
                 <div id="orcCatList" class="flex flex-col gap-2"></div>
             </div>
+            <!-- Preferências -->
+            <div class="mt-4 pt-3" style="border-top:1px solid var(--border)">
+                <p class="font-semibold text-xs mb-2"
+                    style="color:var(--sub);text-transform:uppercase;letter-spacing:.5px">Preferências</p>
+                <div class="flex flex-col gap-2">
+                    <button type="button" class="btn w-full justify-between" onclick="App.toggleTheme()" style="background:var(--bg3);border:1px solid var(--border);padding:10px 14px;border-radius:10px">
+                        <span class="flex items-center gap-2">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                            </svg>
+                            <span class="text-xs">Alternar Tema Claro/Escuro</span>
+                        </span>
+                        <span style="font-size:10px;color:var(--sub)">Alterar</span>
+                    </button>
+                    <button type="button" class="btn w-full justify-between" onclick="App.togglePrivacy()" style="background:var(--bg3);border:1px solid var(--border);padding:10px 14px;border-radius:10px">
+                        <span class="flex items-center gap-2">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <span class="text-xs">Modo de Privacidade (Ocultar Valores)</span>
+                        </span>
+                        <span style="font-size:10px;color:var(--sub)">Alternar</span>
+                    </button>
+                    <button type="button" class="btn w-full mt-1" onclick="App.closeM('mSettings');App.logout()" style="background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);padding:10px 14px;border-radius:10px">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+                        </svg>
+                        <span class="text-xs">Sair da Conta (Logout)</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1166,11 +1205,11 @@
 
     <div class="toast" id="toast"><span id="toastIc"></span><span id="toastMsg"></span></div>
 
-    <script src="js/utils.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/calc.js"></script>
-    <script src="js/dashboard-funcs.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/utils.js?v=20"></script>
+    <script src="js/components.js?v=20"></script>
+    <script src="js/calc.js?v=20"></script>
+    <script src="js/dashboard-funcs.js?v=20"></script>
+    <script src="js/app.js?v=20"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(() => { });

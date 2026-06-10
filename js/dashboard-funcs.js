@@ -3,7 +3,19 @@ function sparkline(el) {
     const d = D.get();
     // Sparkline usa apenas despesas reais (sem teto)
     const pts = []; for (let i = -5; i <= 0; i++) { const m = am(App.curM, i), si = saldoIni(m), c = calc(m); pts.push({ m, v: si + c.ent - c.fix - c.car - c.proj - c.vari }) }
-    if (pts.every(p => p.v === 0)) { el.innerHTML = `<div class="text-center py-4" style="color:var(--sub)"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 6px;opacity:.4"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg><p class="text-xs">Dados insuficientes</p><p style="font-size:10px;margin-top:2px">Preencha ao menos 2 meses</p></div>`; return }
+    if (pts.every(p => p.v === 0)) {
+        el.innerHTML = `
+        <div class="flex items-center justify-between mb-4">
+            <span class="sl">Histórico do Saldo</span>
+            <div class="ic ic-sm" style="background:rgba(99,102,241,0.1);color:var(--accent)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
+        </div>
+        <div class="text-center py-8" style="color:var(--sub)">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto 8px; opacity: 0.4;"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+            <p class="font-bold text-xs" style="color:var(--text)">Sua evolução financeira aparecerá aqui</p>
+            <p style="font-size:10px;margin-top:4px;color:var(--sub)">Continue lançando receitas e despesas para gerar o histórico.</p>
+        </div>`;
+        return;
+    }
     const vals = pts.map(p => p.v), mn = Math.min(...vals), mx = Math.max(...vals), rg = mx - mn || 1;
     const W = 360, H = 60, pd = 14;
     const points = vals.map((v, i) => { const x = pd + i * (W - 2 * pd) / (vals.length - 1); const y = H - pd - (v - mn) / rg * (H - 2 * pd - 12) - 10; return { x, y } });
@@ -26,8 +38,8 @@ function sparkline(el) {
 
     el.innerHTML = `
         <div class="flex items-center justify-between mb-4">
-            <span class="sl">Resumo da Tendência</span>
-            <div class="ic ic-sm" style="background:rgba(52,211,153,0.1)"><span style="color:var(--green)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span></div>
+            <span class="sl">Evolução do Saldo</span>
+            <div class="ic ic-sm" style="background:rgba(99,102,241,0.1);color:var(--accent)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
         </div>
         <div style="margin-top:-6px;position:relative;margin-bottom:8px;width:100%;overflow:visible">
             <svg viewBox="0 0 ${W} ${H - 2}" style="width:100%;height:auto;display:block;overflow:visible">

@@ -30,14 +30,21 @@ function calc(mes, soConfirmados = false) {
             if (soConfirmados && !d.projetosPagos[paidKey]) return;
             if (p.valores && p.valores[mes]) proj += +p.valores[mes]
         }
-        else if (p.tipo === 'meta_continua') {
+        else if (p.tipo === 'meta_continua' || p.tipo === 'oportunidade') {
             if (soConfirmados && !d.projetosPagos[paidKey]) return;
             if (p.aportes && p.aportes[mes] !== undefined) proj += +p.aportes[mes];
             else if (p.dataInicio && mes >= p.dataInicio) proj += +(p.valorMensal || 0);
         }
         else if (p.tipo === 'evento_unico') {
             if (soConfirmados && !d.projetosPagos[paidKey]) return;
-            if (p.mes === mes) proj += +p.valor
+            if (p.aportes && p.aportes[mes] !== undefined) {
+                proj += +p.aportes[mes];
+            } else if (p.mes === mes) {
+                const totalAportes = Object.entries(p.aportes || {})
+                    .filter(([m_]) => m_ < p.mes)
+                    .reduce((s, [, v]) => s + +v, 0);
+                proj += Math.max(0, p.valor - totalAportes);
+            }
         }
     });
     return { ent, fix, car, proj, vari };
@@ -119,11 +126,20 @@ function saldoConta(contaId, mes, soConfirmados = false) {
                 const paidKey = `${p.id}_${m}`;
                 if (soConfirmados && !d.projetosPagos[paidKey]) return;
                 if (p.tipo === 'divida_irregular') { if (p.valores && p.valores[m]) saldo -= +p.valores[m] }
-                else if (p.tipo === 'meta_continua') {
+                else if (p.tipo === 'meta_continua' || p.tipo === 'oportunidade') {
                     if (p.aportes && p.aportes[m] !== undefined) saldo -= +p.aportes[m];
                     else if (p.dataInicio && m >= p.dataInicio) saldo -= +(p.valorMensal || 0);
                 }
-                else if (p.tipo === 'evento_unico') { if (p.mes === m) saldo -= +p.valor }
+                else if (p.tipo === 'evento_unico') {
+                    if (p.aportes && p.aportes[m] !== undefined) {
+                        saldo -= +p.aportes[m];
+                    } else if (p.mes === m) {
+                        const totalAportes = Object.entries(p.aportes || {})
+                            .filter(([m_]) => m_ < p.mes)
+                            .reduce((s, [, v]) => s + +v, 0);
+                        saldo -= Math.max(0, p.valor - totalAportes);
+                    }
+                }
             });
         }
         m = am(m, 1);
@@ -133,7 +149,7 @@ function saldoConta(contaId, mes, soConfirmados = false) {
 
 // DONUT CHART
 function donut(el, segs, total) {
-    if (total <= 0) { el.innerHTML = `<p class="text-xs font-bold mb-2">Composição</p><div class="text-center py-4" style="color:var(--sub)"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 6px;opacity:.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg><p class="text-xs">Sem saídas registradas</p><p style="font-size:10px;margin-top:2px">Adicione despesas para ver o gráfico</p></div>`; return }
+    if (total <= 0) { el.innerHTML = `<p class="text-xs font-bold mb-2">Pra onde vai seu dinheiro?</p><div class="text-center py-4" style="color:var(--sub)"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 6px;opacity:.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg><p class="text-xs">Sem saídas registradas</p><p style="font-size:10px;margin-top:2px">Adicione despesas para ver o gráfico</p></div>`; return }
     const R = 40, C = 2 * Math.PI * R; let off = 0;
     const backdrop = `<circle r="${R}" cx="50" cy="50" fill="none" stroke="var(--bg3)" stroke-width="14" />`;
     const paths = segs.filter(s => s.v > 0).map(s => {
@@ -156,7 +172,7 @@ function donut(el, segs, total) {
         </div>`).join('');
     el.innerHTML = `
         <div class="flex items-center justify-between mb-4">
-            <span class="sl">Composição</span>
+            <span class="sl">Pra onde vai seu dinheiro?</span>
             <div class="ic ic-sm" style="background:rgba(167,139,250,0.1)"><span style="color:var(--purple)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z"/></svg></span></div>
         </div>
         <div class="donut-wrap flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-1">

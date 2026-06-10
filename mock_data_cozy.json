@@ -1,0 +1,249 @@
+{
+  "saldoInicialBase": 4850,
+  "primeiroMes": "2026-05",
+  "receitas": [
+    {
+      "id": "rec_salario",
+      "nome": "Salário Principal",
+      "valor": 6500,
+      "tipo": "entrada",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "",
+      "contaId": "ac_itau"
+    },
+    {
+      "id": "rec_free",
+      "nome": "Rendimento Freelance UI/UX",
+      "valor": 1800,
+      "tipo": "entrada",
+      "repeticao": "unico",
+      "mesUnico": "2026-06",
+      "mesInicio": null,
+      "cat": "",
+      "contaId": "ac_nubank"
+    },
+    {
+      "id": "sai_aluguel",
+      "nome": "Aluguel & Condomínio",
+      "valor": 2200,
+      "tipo": "saida",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "Moradia",
+      "contaId": "ac_itau"
+    },
+    {
+      "id": "sai_net",
+      "nome": "Internet Fibra",
+      "valor": 120,
+      "tipo": "saida",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "Serviços",
+      "contaId": "ac_nubank"
+    },
+    {
+      "id": "sai_luz",
+      "nome": "Energia Elétrica",
+      "valor": 180,
+      "tipo": "saida",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "Moradia",
+      "contaId": "ac_nubank"
+    },
+    {
+      "id": "sai_saude",
+      "nome": "Plano de Saúde",
+      "valor": 350,
+      "tipo": "saida",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "Saúde",
+      "contaId": "ac_itau"
+    },
+    {
+      "id": "sai_netflix",
+      "nome": "Assinatura Netflix Premium",
+      "valor": 55,
+      "tipo": "saida",
+      "repeticao": "mensal",
+      "mesUnico": null,
+      "mesInicio": "2026-05",
+      "cat": "Lazer",
+      "contaId": "ac_nubank"
+    },
+    {
+      "id": "var_mercado",
+      "nome": "Supermercado Pão de Açúcar",
+      "valor": 450,
+      "tipo": "variavel",
+      "repeticao": "unico",
+      "mesUnico": "2026-06",
+      "mesInicio": null,
+      "cat": "Alimentação",
+      "contaId": "ac_itau"
+    },
+    {
+      "id": "var_jantar",
+      "nome": "Jantar Japonês com Amigos",
+      "valor": 180,
+      "tipo": "variavel",
+      "repeticao": "unico",
+      "mesUnico": "2026-06",
+      "mesInicio": null,
+      "cat": "Lazer",
+      "contaId": "ac_carteira"
+    },
+    {
+      "id": "var_posto",
+      "nome": "Combustível Posto Shell",
+      "valor": 200,
+      "tipo": "variavel",
+      "repeticao": "unico",
+      "mesUnico": "2026-06",
+      "mesInicio": null,
+      "cat": "Transporte",
+      "contaId": "ac_itau"
+    },
+    {
+      "id": "var_farmacia",
+      "nome": "Medicamentos e Higiene",
+      "valor": 85,
+      "tipo": "variavel",
+      "repeticao": "unico",
+      "mesUnico": "2026-06",
+      "mesInicio": null,
+      "cat": "Saúde",
+      "contaId": "ac_nubank"
+    }
+  ],
+  "cartoes": [
+    {
+      "id": "car_amazon",
+      "cartao": "Nubank Ultravioleta",
+      "estabelecimento": "Amazon Prime - Cafeteira",
+      "valorParcela": 125,
+      "qtdParcelas": 4,
+      "dataPrimeiraParcela": "2026-05",
+      "cat": "Compras"
+    },
+    {
+      "id": "car_renner",
+      "cartao": "Nubank Ultravioleta",
+      "estabelecimento": "Renner - Casaco de Inverno",
+      "valorParcela": 98,
+      "qtdParcelas": 3,
+      "dataPrimeiraParcela": "2026-06",
+      "cat": "Compras"
+    },
+    {
+      "id": "car_passagens",
+      "cartao": "Itaú Personnalité",
+      "estabelecimento": "Decolar - Passagens Aéreas",
+      "valorParcela": 350,
+      "qtdParcelas": 6,
+      "dataPrimeiraParcela": "2026-04",
+      "cat": "Viagem"
+    }
+  ],
+  "meusCartoes": [
+    "Nubank Ultravioleta",
+    "Itaú Personnalité"
+  ],
+  "projetos": [
+    {
+      "id": "proj_reserva",
+      "nome": "Colchão Financeiro",
+      "tipo": "meta_continua",
+      "valorMensal": 500,
+      "dataInicio": "2026-05",
+      "objetivo": 15000,
+      "dataAlvo": "2027-12",
+      "aportes": {
+        "2026-05": 1500,
+        "2026-06": 500
+      },
+      "rendimentos": {
+        "2026-05": 12,
+        "2026-06": 18
+      }
+    },
+    {
+      "id": "proj_viagem",
+      "nome": "Viagem Noronha",
+      "tipo": "evento_unico",
+      "valor": 8000,
+      "mes": "2026-12",
+      "aportes": {
+        "2026-05": 1000,
+        "2026-06": 800
+      }
+    }
+  ],
+  "contas": [
+    {
+      "id": "ac_itau",
+      "nome": "Itaú Personnalité",
+      "cor": "#ec5c24",
+      "saldoInicial": 3500
+    },
+    {
+      "id": "ac_nubank",
+      "nome": "Nubank",
+      "cor": "var(--purple)",
+      "saldoInicial": 1200
+    },
+    {
+      "id": "ac_carteira",
+      "nome": "Carteira",
+      "cor": "var(--green)",
+      "saldoInicial": 150
+    }
+  ],
+  "pagamentos": {
+    "rec_salario_2026-05": true,
+    "rec_salario_2026-06": true,
+    "rec_free": true,
+    "sai_aluguel_2026-05": true,
+    "sai_aluguel_2026-06": true,
+    "sai_net_2026-05": true,
+    "sai_net_2026-06": true,
+    "sai_luz_2026-05": true,
+    "sai_netflix_2026-05": true,
+    "sai_netflix_2026-06": true
+  },
+  "faturasPagas": {
+    "Nubank Ultravioleta_2026-05": true,
+    "Nubank Ultravioleta_2026-06": true,
+    "Itaú Personnalité_2026-05": true
+  },
+  "projetosPagos": {
+    "proj_reserva_2026-05": true,
+    "proj_reserva_2026-06": true,
+    "proj_viagem_2026-05": true,
+    "proj_viagem_2026-06": true
+  },
+  "orcamentoVariavel": 1200,
+  "orcamentoCategorias": {
+    "Alimentação": 800,
+    "Lazer": 400,
+    "Transporte": 300
+  },
+  "automacoesCategoria": {
+    "ifood": "Alimentação",
+    "uber": "Transporte",
+    "99app": "Transporte",
+    "netflix": "Lazer",
+    "spotify": "Lazer",
+    "amazon": "Compras",
+    "mercado livre": "Compras"
+  },
+  "onboardingDone": true
+}

@@ -35,7 +35,7 @@ db.enablePersistence().catch(() => { });
 let _fbUid = null;
 
 // ─── DEV MODE: pula auth no localhost para testar localmente ───
-const _isDevMode = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const _isDevMode = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') && !new URLSearchParams(window.location.search).has('prod');
 if (_isDevMode) console.log('%c[DEV MODE] Auth bypass ativo — dados do localStorage', 'color:#22d3ee;font-weight:bold');
 
 const D = {
@@ -97,6 +97,10 @@ const D = {
     },
     async saveToFirestore() {
         if (!_fbUid || !this._d) return;
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            console.log('%c[SANDBOX] Alteração salva apenas no localStorage local. Banco de produção protegido.', 'color:#fbbf24;font-weight:bold');
+            return;
+        }
         try {
             await db.collection('users').doc(_fbUid).set(JSON.parse(JSON.stringify(this._d)));
         } catch (e) { console.warn('Firestore write failed:', e) }

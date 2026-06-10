@@ -1,19 +1,19 @@
-const CACHE_NAME = 'fintrackr-v11';
+const CACHE_NAME = 'fintrackr-v20';
 const ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json?v=10',
+  '/manifest.json?v=20',
   '/sw.js',
   '/firebase-config.js',
-  '/css/styles.css?v=8',
-  '/css/splash.css?v=8',
-  '/css/login.css?v=8',
-  '/js/utils.js?v=8',
-  '/js/components.js?v=8',
-  '/js/calc.js?v=8',
-  '/js/dashboard-funcs.js?v=8',
-  '/js/app.js?v=8',
-  '/js/splash.js?v=8',
+  '/css/styles.css?v=20',
+  '/css/splash.css?v=20',
+  '/css/login.css?v=20',
+  '/js/utils.js?v=20',
+  '/js/components.js?v=20',
+  '/js/calc.js?v=20',
+  '/js/dashboard-funcs.js?v=20',
+  '/js/app.js?v=20',
+  '/js/splash.js?v=20',
   '/fintrackr_icon_v9.png'
 ];
 

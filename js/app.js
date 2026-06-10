@@ -320,24 +320,21 @@ const App = {
             heroIconBg = saldoAtual >= 0 ? 'rgba(52,211,153,.12)' : 'rgba(248,113,113,.12)';
             heroIcon = saldoAtual >= 0 ? IC.chk : IC.warn;
             subCardHtml = `
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Ainda a Pagar</p>
-  <p style="font-size:14px;font-weight:800;color:#fbbf24">${fmt(despPendentes)}</p>
-  <p style="font-size:11px;color:var(--sub)">Contas e faturas pendentes</p>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Ainda a Pagar</p>
+  <p style="font-size:16px;font-weight:800;color:#fbbf24">${fmt(despPendentes)}</p>
 </div>
-<div style="width:1px;height:28px;background:var(--border);flex-shrink:0"></div>
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Sobra do Mês</p>
-  <p style="font-size:14px;font-weight:800;color:${dlColor}">${fmt(dinheiroLivre)}</p>
-  <p style="font-size:11px;color:var(--sub)">${fmt(saldoAtual, true)} − ${fmt(despPendentes, true)}</p>
+<div style="width:1px;height:32px;background:rgba(255,255,255,0.06);flex-shrink:0"></div>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Sobra do Mês</p>
+  <p style="font-size:16px;font-weight:800;color:${dlColor}">${fmt(dinheiroLivre)}</p>
 </div>
-${tetoVal > 0 ? `<div style="width:100%;margin-top:4px;padding-top:6px;border-top:1px solid var(--border)">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
-    <span style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px">🛒 Orçamento Avulsos</span>
-    <span style="font-size:10px;font-weight:700;color:${tetoColor}">${fmt(c.vari, true)} / ${fmt(tetoVal, true)}</span>
+${tetoVal > 0 ? `<div style="width:100%;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,0.06)">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+    <span style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px">Orçamento Avulso</span>
+    <span style="font-size:11px;font-weight:700;color:${tetoColor}">${fmt(c.vari, true)} / ${fmt(tetoVal, true)}</span>
   </div>
-  <div style="height:5px;border-radius:3px;background:var(--bg);overflow:hidden"><div style="height:100%;width:${tetoPct}%;border-radius:3px;background:${tetoColor};transition:width .4s"></div></div>
-  <p style="font-size:9px;color:var(--sub);margin-top:2px">Restam ${fmt(tetoRestante, true)} para gastar</p>
+  <div class="pbar" style="height:5px"><div class="pfill anim-pbar" data-width="${tetoPct}%" style="width:0%;background:${tetoColor}"></div></div>
 </div>` : ''}`;
         } else if (isFuture) {
             // ── MÊS FUTURO: Saldo Projetado (sem teto) ──
@@ -350,28 +347,26 @@ ${tetoVal > 0 ? `<div style="width:100%;margin-top:4px;padding-top:6px;border-to
             // Extrato de transição: explica de onde vem o saldo
             const siPrev = saldoIni(this.curM, false);
             subCardHtml = `
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Receitas</p>
-  <p style="font-size:14px;font-weight:800;color:var(--green)">${fmt(c.ent)}</p>
-  <p style="font-size:11px;color:var(--sub)">Entradas planejadas</p>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Receitas</p>
+  <p style="font-size:16px;font-weight:800;color:var(--green)">${fmt(c.ent)}</p>
 </div>
-<div style="width:1px;height:28px;background:var(--border);flex-shrink:0"></div>
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Despesas</p>
-  <p style="font-size:14px;font-weight:800;color:var(--red)">${fmt(ts)}</p>
-  <p style="font-size:11px;color:var(--sub)">Fixas + Cartões + Avulsos</p>
+<div style="width:1px;height:32px;background:rgba(255,255,255,0.06);flex-shrink:0"></div>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Despesas</p>
+  <p style="font-size:16px;font-weight:800;color:var(--red)">${fmt(ts)}</p>
 </div>
-<div style="width:100%;margin-top:4px;padding-top:6px;border-top:1px solid var(--border)">
+<div style="width:100%;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,0.06)">
   <details style="cursor:pointer">
-    <summary style="font-size:9px;font-weight:600;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:4px"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>📊 Como chegamos aqui</summary>
-    <div style="margin-top:6px;font-size:10px;color:var(--sub);line-height:1.8">
-      <div style="display:flex;justify-content:space-between"><span>Saldo vindo de ${ml(am(this.curM, -1))}</span><b style="color:var(--text)">${fmt(siPrev, true)}</b></div>
+    <summary style="font-size:9px;font-weight:600;color:var(--accent2);text-transform:uppercase;letter-spacing:1px;list-style:none;display:flex;align-items:center;justify-content:center;gap:4px"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>Ver Resumo Projetado</summary>
+    <div style="margin-top:10px;font-size:11px;color:var(--sub);line-height:2;text-align:left;background:rgba(0,0,0,0.2);padding:10px 14px;border-radius:10px">
+      <div style="display:flex;justify-content:space-between"><span>Saldo anterior</span><b style="color:var(--text)">${fmt(siPrev, true)}</b></div>
       <div style="display:flex;justify-content:space-between"><span>+ Receitas</span><b style="color:var(--green)">${fmt(c.ent, true)}</b></div>
-      <div style="display:flex;justify-content:space-between"><span>− Desp. Fixas</span><b style="color:var(--red)">-${fmt(c.fix, true)}</b></div>
+      <div style="display:flex;justify-content:space-between"><span>− Contas Fixas</span><b style="color:var(--red)">-${fmt(c.fix, true)}</b></div>
       <div style="display:flex;justify-content:space-between"><span>− Cartões</span><b style="color:var(--orange)">-${fmt(c.car, true)}</b></div>
-      ${c.vari > 0 ? `<div style="display:flex;justify-content:space-between"><span>− Avulsos</span><b style="color:#22d3ee">-${fmt(c.vari, true)}</b></div>` : ''}
+      ${c.vari > 0 ? `<div style="display:flex;justify-content:space-between"><span>− Dia-a-dia</span><b style="color:#22d3ee">-${fmt(c.vari, true)}</b></div>` : ''}
       ${c.proj > 0 ? `<div style="display:flex;justify-content:space-between"><span>− Caixinhas</span><b style="color:var(--purple)">-${fmt(c.proj, true)}</b></div>` : ''}
-      <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:4px;margin-top:4px"><b>= Saldo Projetado</b><b style="color:${hc}">${fmt(sf, true)}</b></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;margin-top:6px"><b>= Saldo Projetado</b><b style="color:${hc}">${fmt(sf, true)}</b></div>
     </div>
   </details>
 </div>`;
@@ -384,16 +379,14 @@ ${tetoVal > 0 ? `<div style="width:100%;margin-top:4px;padding-top:6px;border-to
             heroIconBg = 'rgba(139,92,246,.06)';
             heroIcon = `<svg width="18" height="18" fill="none" stroke="var(--sub)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
             subCardHtml = `
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Receitas</p>
-  <p style="font-size:14px;font-weight:800;color:var(--green)">${fmt(c.ent)}</p>
-  <p style="font-size:11px;color:var(--sub)">Total no mês</p>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Receitas</p>
+  <p style="font-size:16px;font-weight:800;color:var(--green)">${fmt(c.ent)}</p>
 </div>
-<div style="width:1px;height:28px;background:var(--border);flex-shrink:0"></div>
-<div style="min-width:0">
-  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px">Despesas</p>
-  <p style="font-size:14px;font-weight:800;color:var(--red)">${fmt(ts)}</p>
-  <p style="font-size:11px;color:var(--sub)">Total no mês</p>
+<div style="width:1px;height:32px;background:rgba(255,255,255,0.06);flex-shrink:0"></div>
+<div style="min-width:0;text-align:center;flex:1">
+  <p style="font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Despesas</p>
+  <p style="font-size:16px;font-weight:800;color:var(--red)">${fmt(ts)}</p>
 </div>`;
         }
 
@@ -404,32 +397,32 @@ ${tetoVal > 0 ? `<div style="width:100%;margin-top:4px;padding-top:6px;border-to
             const sColor = saldo >= 0 ? cor : 'var(--red)';
             return `<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;background:${cor}15;color:${sColor};white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:${cor};flex-shrink:0"></span>${ct.nome} ${fmt(saldo)}</span>`;
         }).join('') : '';
-        const contaRow = contaPills ? `<div class="flex flex-wrap gap-1 mt-2">${contaPills}</div>` : '';
+        const contaRow = contaPills ? `<div class="accounts-scroll mt-2">${contaPills}</div>` : '';
 
-        document.getElementById('dHero').innerHTML = `<div class="hero card" style="height:100%;display:flex;flex-direction:column;justify-content:center">
-      <div class="flex items-center justify-between">
-<div style="flex:1;min-width:0">
-  <p class="sl" style="margin-bottom:2px">${heroLabel}</p>
-  <p class="sv text-2xl animate-val" data-val="${heroValue}" style="color:${heroColor}">${fmt(heroValue)}</p>
-  <p class="text-[11px] mt-0.5" style="color:var(--sub)">${heroSubtext}</p>
-</div>
-<div class="shrink-0" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:3px">
-  <div class="ic" style="background:${heroIconBg};width:40px;height:40px;border-radius:12px"><span style="color:${heroColor}">${heroIcon}</span></div>
-  <span style="font-size:10px;font-weight:700;color:${semaforoCor};display:flex;align-items:center;gap:3px;white-space:nowrap;cursor:help" title="${semaforoTip}">${semaforoIcon} ${semaforoLabel}</span>
-</div>
+        document.getElementById('dHero').innerHTML = `<div class="hero card" style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 20px">
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:24px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.04);margin-bottom:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)">
+        <span style="display:flex;align-items:center;color:${semaforoCor}">${semaforoIcon}</span>
+        <span style="font-size:10px;font-weight:700;color:var(--text);letter-spacing:0.5px;text-transform:uppercase">${semaforoLabel}</span>
       </div>
-      <div style="margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--bg3);display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:space-between">
-${subCardHtml}
+      <p class="sl" style="font-size:11px;letter-spacing:1px;margin-bottom:4px">${heroLabel}</p>
+      <p class="sv animate-val" data-val="${heroValue}" style="font-size:44px;font-weight:800;letter-spacing:-1.5px;color:${heroColor};margin-bottom:4px">${fmt(heroValue)}</p>
+      <p style="font-size:12px;color:var(--sub);font-weight:500;margin-bottom:28px">${heroSubtext}</p>
+      <div style="width:100%;max-width:380px;padding:16px 20px;border-radius:16px;background:rgba(0,0,0,0.15);border:1px solid rgba(255,255,255,0.03);display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between">
+        ${subCardHtml}
       </div>
-      <div class="flex items-center gap-3 mt-2" style="font-size:10px;color:var(--sub)"><span style="color:${reservaCor};font-weight:600;display:inline-flex;align-items:center;gap:3px">${shieldSvg} Reserva: ${reservaText} ${mesesReserva === 1 ? 'mês' : 'meses'}</span></div>
-      ${contaRow}</div>`;
+      <div style="margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:10px">
+        ${contaRow}
+        <div class="flex items-center gap-2" style="font-size:10px;color:var(--sub);margin-top:2px"><span style="color:${reservaCor};font-weight:600;display:inline-flex;align-items:center;gap:4px">${shieldSvg} Colchão de emergência: ${reservaText} ${mesesReserva === 1 ? 'mês' : 'meses'}</span></div>
+      </div>
+</div>`;
+        const orcElDash = d.orcamentoVariavel > 0 ? `<button class="bi" title="Editar teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto;${(c.vari > d.orcamentoVariavel) ? 'color:var(--red)' : ''}">teto: ${fmt(d.orcamentoVariavel, true)}</button>` : `<button class="bi" title="Definir teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Teto</button>`;
         const cards = [
-            { l: 'Balanço Mensal', v: c.ent - ts, vc: cConf.ent - (cConf.fix + cConf.car + cConf.proj + cConf.vari), cls: (c.ent - ts >= 0) ? 'color:var(--green)' : 'color:var(--red)', bg: 'rgba(107,107,128,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--sub)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
-            { l: 'Receitas', v: c.ent, vc: cConf.ent, cls: 'color:var(--text)', bg: 'rgba(52,211,153,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 11l5-5m0 0l5 5m-5-5v12" /></svg>' },
-            { l: 'Desp. Fixas', v: c.fix, vc: cConf.fix, cls: 'color:var(--text)', bg: 'rgba(248,113,113,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 13l5 5m0 0l5-5m-5 5V6" /></svg>' },
-            { l: 'Gastos Avulsos', v: c.vari, vc: cConf.vari, cls: (d.orcamentoVariavel > 0 && c.vari > d.orcamentoVariavel) ? 'color:var(--red)' : 'color:var(--text)', bg: (d.orcamentoVariavel > 0 && c.vari > d.orcamentoVariavel) ? 'rgba(248,113,113,.1)' : 'rgba(34,211,238,.1)', ic: '<svg width="16" height="16" fill="none" stroke="' + ((d.orcamentoVariavel > 0 && c.vari > d.orcamentoVariavel) ? 'var(--red)' : 'var(--cyan,#22d3ee)') + '" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>' },
+            { l: 'Resultado do Mês', v: c.ent - ts, vc: cConf.ent - (cConf.fix + cConf.car + cConf.proj + cConf.vari), cls: (c.ent - ts >= 0) ? 'color:var(--green)' : 'color:var(--red)', bg: 'rgba(107,107,128,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--sub)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
+            { l: 'Receitas', v: c.ent, vc: cConf.ent, cls: 'color:var(--text)', bg: 'rgba(52,211,153,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 11l5-5m0 0l5 5m-5-5v12" /></svg>' },
+            { l: 'Contas Fixas', v: c.fix, vc: cConf.fix, cls: 'color:var(--text)', bg: 'rgba(248,113,113,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 13l5 5m0 0l5-5m-5 5V6" /></svg>' },
+            { l: 'Dia-a-dia', v: c.vari, vc: cConf.vari, cls: 'color:var(--text)', bg: 'rgba(6,182,212,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--cyan)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>', extra: orcElDash },
             { l: 'Cartões', v: c.car, vc: cConf.car, cls: 'color:var(--text)', bg: 'rgba(251,191,36,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--orange)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>' },
-            { l: 'Caixinhas', v: c.proj, vc: cConf.proj, cls: 'color:var(--text)', bg: 'rgba(167,139,250,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>' }
+            { l: 'Caixinhas', v: c.proj, vc: cConf.proj, cls: 'color:var(--text)', bg: 'rgba(167,139,250,.1)', ic: '<svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" /></svg>' }
         ];
         // Comparativo com mês anterior
         const prevM = am(this.curM, -1), cPrev = calc(prevM), tsPrev = cPrev.fix + cPrev.car + cPrev.proj + cPrev.vari;
@@ -443,8 +436,7 @@ ${subCardHtml}
         } else if (balNow !== 0) {
             compHtml = `<span style="font-size:9px;font-weight:600;color:var(--green);margin-left:4px">● novo</span>`;
         }
-        const orcElDash = d.orcamentoVariavel > 0 ? `<button class="bi" title="Editar teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto;${(c.vari > d.orcamentoVariavel) ? 'color:var(--red)' : ''}">teto: ${fmt(d.orcamentoVariavel, true)}</button>` : `<button class="bi" title="Definir teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Teto</button>`;
-
+        
         const wp = this.getWealthProjection();
         const wpCard = `<div class="flex items-center justify-between mb-2"><span class="sl">Futuro Financeiro</span><div class="ic ic-sm" style="background:rgba(139,92,246,0.1);color:var(--purple)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></div>
         <div class="flex flex-col gap-1">
@@ -455,26 +447,30 @@ ${subCardHtml}
         <p class="text-[8px] mt-1.5" style="color:var(--sub);line-height:1.2">Com base na média de sobras dos últimos 4 meses (${fmt(wp.avg, true)}/mês)</p>`;
 
         document.getElementById('dCards').innerHTML = cards.map((x, i) => {
-            const extra = x.l === 'Gastos Avulsos' ? orcElDash : '';
-            const comp = x.l === 'Balanço Mensal' ? compHtml : '';
+            const comp = x.l === 'Resultado do Mês' ? compHtml : '';
             const confLine = (x.vc !== x.v) ? `<p style="font-size:9px;color:var(--green);margin-top:2px">✓ ${fmt(x.vc, true)} confirmado</p>` : '';
-            return `<div class="card card-sm card-h stagger"><div class="flex items-center justify-between mb-1"><span class="sl" style="font-size:10px">${x.l}</span><div class="flex items-center gap-2">${extra}<div class="ic ic-sm" style="background:${x.bg}">${x.ic}</div></div></div><p class="sv text-lg animate-val" data-val="${x.v}" style="${x.cls}">${fmt(x.v, true)}${comp}</p>${confLine}</div>`;
+            const extraBtn = x.extra || '';
+            return `<div class="card card-sm card-h stagger"><div class="flex items-center justify-between mb-1"><span class="sl" style="font-size:10px">${x.l}</span><div class="flex items-center gap-2">${extraBtn}<div class="ic ic-sm" style="background:${x.bg}">${x.ic}</div></div></div><p class="sv text-lg animate-val" data-val="${x.v}" style="${x.cls}">${fmt(x.v, true)}${comp}</p>${confLine}</div>`;
         }).join('');
 
-        // Futuro Financeiro (sidebar)
-        const dWealthEl = document.getElementById('dWealth');
-        if (dWealthEl) dWealthEl.innerHTML = wpCard.replace('card card-sm card-h stagger', '');
+        const dW = document.getElementById('dWealth');
+        if (dW) dW.innerHTML = wpCard;
 
-        // Uso da renda
+        // Futuro Financeiro (sidebar)
+           // Uso da renda
         const pct = c.ent > 0 ? (ts / c.ent) * 100 : 0;
         const rHc = pct > 100 ? 'var(--red)' : pct > 90 ? '#fbbf24' : 'var(--accent)';
+        const sobra = c.ent - ts;
+        const resumoMsg = pct > 100 ? `Você gastou <b style="color:var(--red)">${fmt(ts, true)}</b> — isso é <b style="color:var(--red)">${fmt(Math.abs(sobra), true)} a mais</b> do que ganhou.`
+            : pct > 90 ? `Você usou <b style="color:#fbbf24">${pct.toFixed(0)}%</b> da renda. Só sobram <b style="color:#fbbf24">${fmt(sobra, true)}</b>.`
+            : `Você usou <b style="color:var(--accent)">${pct.toFixed(0)}%</b> da renda. Sobram <b style="color:var(--green)">${fmt(sobra, true)}</b> este mês.`;
         document.getElementById('dResumo').innerHTML = `
         <div class="flex items-center gap-4">
             <div class="flex items-center gap-2 shrink-0">
                 <div class="ic ic-sm" style="background:rgba(99,102,241,0.1);color:var(--accent)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
                 <div>
-                    <span class="sl" style="margin-bottom:0">Uso da Renda</span>
-                    <p class="text-lg font-extrabold" style="color:${rHc};line-height:1">${pct.toFixed(0)}%<span class="text-[10px] font-medium ml-1" style="color:var(--sub)">comprometido</span></p>
+                    <span class="sl" style="margin-bottom:0">Resumo da Renda</span>
+                    <p style="font-size:12px;color:var(--text);line-height:1.4;margin-top:2px">${resumoMsg}</p>
                 </div>
             </div>
             <div class="flex-1 min-w-0">
@@ -489,7 +485,7 @@ ${subCardHtml}
         </div>`;
 
         // Donut (usa despesas reais, sem teto)
-        donut(document.getElementById('dBreak'), [{ l: 'Fixas', v: c.fix, c: 'var(--red)' }, { l: 'Avulsos', v: c.vari, c: '#22d3ee' }, { l: 'Cartões', v: c.car, c: 'var(--orange)' }, { l: 'Projetos', v: c.proj, c: 'var(--purple)' }], ts);
+        donut(document.getElementById('dBreak'), [{ l: 'Contas Fixas', v: c.fix, c: 'var(--red)' }, { l: 'Dia-a-dia', v: c.vari, c: 'var(--cyan)' }, { l: 'Cartões', v: c.car, c: 'var(--orange)' }, { l: 'Caixinhas', v: c.proj, c: 'var(--purple)' }], ts);
         // Sparkline
         sparkline(document.getElementById('dSparkline'));
         // Annual (compact in-card)
@@ -582,7 +578,19 @@ ${subCardHtml}
             return r.mesUnico === now;
         };
         const active = d.receitas.filter(isActive).slice(-5);
-        if (!active.length) { el.style.display = 'none'; return; }
+        if (!active.length) {
+            el.style.display = 'block';
+            el.innerHTML = `
+            <div class="flex items-center justify-between mb-2">
+                <span class="sl">Movimentações do Mês</span>
+            </div>
+            <div class="text-center py-8" style="color:var(--sub)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto 6px; opacity: 0.4;"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 5v2m12-2v2m-12 10v2m12-2v2"/></svg>
+                <p class="font-bold text-xs" style="color:var(--text)">Nenhuma movimentação</p>
+                <p style="font-size:10px;margin-top:2px;color:var(--sub)">Suas transações do mês selecionado aparecerão listadas aqui.</p>
+            </div>`;
+            return;
+        }
         el.style.display = 'block';
         const items = active.map(r => {
             const isEnt = r.tipo === 'entrada';
@@ -592,14 +600,23 @@ ${subCardHtml}
             const contaName = conta ? conta.nome : '';
             return `<div class="flex items-center gap-2 py-2" style="border-bottom:1px solid rgba(255,255,255,.04)"><div class="ic ic-sm shrink-0" style="background:${isEnt ? 'rgba(52,211,153,.1)' : 'rgba(248,113,113,.1)'}"><span style="color:${cor};display:flex;align-items:center;justify-content:center">${icon}</span></div><div class="min-w-0 flex-1"><p class="font-semibold text-xs truncate">${r.nome}</p>${contaName ? `<p style="font-size:9px;color:var(--sub)">${contaName}</p>` : ''}</div><span class="font-bold text-xs shrink-0" style="color:${cor}">${isEnt ? '+' : '-'}${fmt(r.valor, true)}</span></div>`;
         }).join('');
-        el.innerHTML = `<div class="flex items-center justify-between mb-2"><span class="sl">Transações do Mês</span><span style="font-size:9px;color:var(--sub)">${active.length} iten${active.length > 1 ? 's' : ''}</span></div>${items}`;
+        el.innerHTML = `<div class="flex items-center justify-between mb-2"><span class="sl">Movimentações do Mês</span><span style="font-size:9px;color:var(--sub)">${active.length} iten${active.length > 1 ? 's' : ''}</span></div>${items}`;
     },
     render5030() {
         const el = document.getElementById('d5030');
         if (!el) return;
         const cats = calcByCategory(this.curM), c = calc(this.curM);
         const ts = c.fix + c.car + c.proj + c.vari;
-        if (ts <= 0) { el.innerHTML = `<p class="sl mb-2">Perfil de Gastos</p><p class="text-xs" style="color:var(--sub)">Sem despesas para analisar</p>`; return; }
+        if (ts <= 0) {
+            el.innerHTML = `
+            <p class="sl mb-2">Saúde Financeira</p>
+            <div class="text-center py-6" style="color:var(--sub)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto 6px; opacity: 0.4;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <p class="font-bold text-xs" style="color:var(--text)">Análise de Saúde Financeira</p>
+                <p style="font-size:10px;margin-top:2px;color:var(--sub)">Lançamentos de despesas classificarão seus gastos na regra 50-30-20.</p>
+            </div>`;
+            return;
+        }
         let nec = 0, des = 0, inv = 0;
         Object.entries(cats).forEach(([cat, val]) => {
             const cls = CatClass[cat] || 'D';
@@ -613,7 +630,7 @@ ${subCardHtml}
             const over = pct > ideal;
             return `<div class="mb-3"><div class="flex justify-between items-baseline mb-1"><span class="text-xs font-semibold">${label}</span><span class="text-xs font-bold" style="color:${over ? 'var(--red)' : cor}">${pct.toFixed(0)}% <span style="font-size:9px;color:var(--sub);font-weight:400">/ ${ideal}%</span></span></div><div class="pbar" style="height:6px;border-radius:3px;background:var(--bg3)"><div class="pfill anim-pbar" data-width="${Math.min(pct, 100)}%" style="width:0%;border-radius:3px;background:${over ? 'linear-gradient(90deg,' + cor + ',var(--red))' : cor}"></div></div></div>`;
         };
-        el.innerHTML = `<p class="sl mb-3">Perfil de Gastos</p>${bar(pN, 50, '#34d399', 'Necessidades')}\n${bar(pD, 30, '#fbbf24', 'Desejos')}\n${bar(pI, 20, 'var(--accent)', 'Investimentos')}<div class="text-xs mt-1" style="color:var(--sub)">Base: ${fmt(total)} em despesas</div>`;
+        el.innerHTML = `<p class="sl mb-3">Saúde Financeira</p>${bar(pN, 50, 'var(--green)', 'Necessidades')}\n${bar(pD, 30, 'var(--orange)', 'Desejos')}\n${bar(pI, 20, 'var(--accent)', 'Investimentos')}<div class="text-xs mt-1" style="color:var(--sub)">Base: ${fmt(total)} em despesas</div>`;
     },
     togglePrivacy(toggle = true) {
         let isPriv = localStorage.getItem('priv-mode') === 'true';
@@ -636,7 +653,16 @@ ${subCardHtml}
         if (!el) return;
         const cats = calcByCategory(this.curM), d = D.get();
         const entries = Object.entries(cats).sort((a, b) => b[1] - a[1]);
-        if (!entries.length) { el.innerHTML = `<p class="sl mb-2">Gastos por Categoria</p><p class="text-xs" style="color:var(--sub)">Sem despesas categorizadas</p>`; return; }
+        if (!entries.length) {
+            el.innerHTML = `
+            <p class="sl mb-2">Gastos por Categoria</p>
+            <div class="text-center py-6" style="color:var(--sub)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto 6px; opacity: 0.4;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01"/></svg>
+                <p class="font-bold text-xs" style="color:var(--text)">Gastos por Categoria</p>
+                <p style="font-size:10px;margin-top:2px;color:var(--sub)">Suas despesas categorizadas aparecerão detalhadas aqui.</p>
+            </div>`;
+            return;
+        }
         const maxVal = entries[0][1];
         const catColors = { 'Alimentação': '#f59e0b', 'Moradia': '#ef4444', 'Transporte': '#3b82f6', 'Saúde': '#10b981', 'Educação': '#8b5cf6', 'Lazer': '#ec4899', 'Assinaturas': '#6366f1', 'Serviços': '#14b8a6', 'Compras': '#f97316', 'Outros': '#6b7280', 'Sem categoria': '#6b7280', 'Cartões': '#fbbf24' };
         const orcCat = d.orcamentoCategorias || {};
@@ -770,12 +796,12 @@ ${subCardHtml}
         const orcEl = d.orcamentoVariavel > 0 ? `<button class="bi" title="Editar teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto">teto: ${fmt(d.orcamentoVariavel)}</button>` : `<button class="bi" title="Definir teto" onclick="App.setOrcVar()" style="width:auto;padding:2px 6px;font-size:9px;gap:2px;height:auto"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Teto</button>`;
         document.getElementById('recList').innerHTML = `
       <div class="card"><div class="flex items-center justify-between pb-2 mb-1" style="border-bottom:1px solid var(--border)"><div class="flex items-center gap-2"><span class="badge badge-green">Receitas</span><span style="font-size:10px;color:var(--sub)">${entM.length}</span></div><span class="font-bold text-xs" style="color:var(--green)">${fmt(totalMes(entM))}</span></div>${rl(entM, 'entrada')}</div>
-      <div class="card"><div class="flex items-center justify-between pb-2 mb-1" style="border-bottom:1px solid var(--border)"><div class="flex items-center gap-2"><span class="badge badge-red">Despesas Fixas</span><span style="font-size:10px;color:var(--sub)">${saiM.length}</span></div><span class="font-bold text-xs" style="color:var(--red)">${fmt(totalMes(saiM))}</span></div>${rl(saiM, 'saida')}</div>
-      <div class="card"><div class="flex items-center justify-between pb-2 mb-1" style="border-bottom:1px solid var(--border)"><div class="flex items-center gap-2"><span class="badge" style="background:rgba(34,211,238,.12);color:#22d3ee">Gastos Avulsos</span><span style="font-size:10px;color:var(--sub)">${variM.length}</span>${orcEl}</div><span class="font-bold text-xs" style="color:#22d3ee">${fmt(totalMes(variM))}</span></div>${rl(variM, 'variavel')}</div>`;
+      <div class="card"><div class="flex items-center justify-between pb-2 mb-1" style="border-bottom:1px solid var(--border)"><div class="flex items-center gap-2"><span class="badge badge-red">Contas Fixas</span><span style="font-size:10px;color:var(--sub)">${saiM.length}</span></div><span class="font-bold text-xs" style="color:var(--red)">${fmt(totalMes(saiM))}</span></div>${rl(saiM, 'saida')}</div>
+      <div class="card"><div class="flex items-center justify-between pb-2 mb-1" style="border-bottom:1px solid var(--border)"><div class="flex items-center gap-2"><span class="badge" style="background:rgba(34,211,238,.12);color:#22d3ee">Gastos do Dia-a-dia</span><span style="font-size:10px;color:var(--sub)">${variM.length}</span>${orcEl}</div><span class="font-bold text-xs" style="color:#22d3ee">${fmt(totalMes(variM))}</span></div>${rl(variM, 'variavel')}</div>`;
     },
     setOrcVar() {
         const d = D.get();
-        let val = prompt('Defina o teto mensal para gastos avulsos (R$):', d.orcamentoVariavel || '');
+        let val = prompt('Defina o teto mensal para gastos do dia-a-dia (R$):', d.orcamentoVariavel || '');
         if (val === null) return;
         val = +val;
         if (!isNaN(val) && val >= 0) {
@@ -889,28 +915,33 @@ ${subCardHtml}
             return `<div class="lr stagger" style="animation-delay:${i * .04}s${fin ? ';opacity:.5' : ''}${isOverdue ? ';border-left:3px solid var(--red)' : ''}">
                 <div class="lr-content">
                     ${toggleBtn}
-                    <div class="flex-1 min-w-0 lr-text">
-                        <p class="font-semibold text-xs flex items-center gap-1 truncate" style="${isPaidC ? 'text-decoration:line-through;opacity:0.6' : ''}${isCr ? 'color:var(--green)' : ''}">
-                            ${tc(c.estabelecimento)}
-                            ${c.cat ? `<span class="shrink-0" style="font-size:9px;padding:2px 4px;border-radius:4px;background:var(--bg3);color:var(--sub);font-weight:500">${c.cat}</span>` : ''}
-                            ${isOverdue ? `<span class="shrink-0" style="font-size:8px;padding:1px 4px;border-radius:4px;background:rgba(248,113,113,.15);color:var(--red);font-weight:600">ATRASADO</span>` : ''}
-                        </p>
-                        <p class="truncate" style="font-size:11px;color:var(--sub)">${iv ? (isCr ? 'Estorno à vista' : 'À vista') + ' — ' + fmt(c.valorParcela, true) : c.qtdParcelas + (isCr ? 'x (Estorno parcelado) de ' : 'x de ') + fmt(c.valorParcela, true) + ' — Total: ' + fmt(c.valorParcela * c.qtdParcelas, true)}</p>
-                        ${!iv ? `<p class="truncate" style="font-size:10px;color:${(act || antMes > 0) ? (isCr ? 'var(--green)' : 'var(--accent2)') : 'var(--sub)'}">${act ? 'Parcela ' + cur + '/' + len : (fin ? 'Finalizado' : 'Inicia ' + ml(c.dataPrimeiraParcela))}${antMes > 0 ? ` (+${antMes} antecipadas)` : ''}</p>` : ''}
-                        ${(act || antMes > 0) && !iv ? `<div class="pbar mt-1" style="width:100px;max-width:100%"><div class="pfill" style="width:${pct}%;${isCr ? 'background:var(--green)' : ''}"></div></div>` : ''}
+                    <div class="lr-text flex items-center gap-3 min-w-0">
+                        <div class="ic ic-sm shrink-0" style="background:${isCr ? 'rgba(52,211,153,.1)' : 'rgba(251,191,36,.1)'}15; color:${isCr ? 'var(--green)' : 'var(--orange)'}">
+                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-xs truncate flex items-center gap-1" style="${isPaidC ? 'text-decoration:line-through;opacity:0.6' : ''}${isCr ? 'color:var(--green)' : ''}">
+                                ${tc(c.estabelecimento)}
+                                ${c.cat ? `<span class="shrink-0" style="font-size:9px;padding:2px 4px;border-radius:4px;background:var(--bg3);color:var(--sub);font-weight:500">${c.cat}</span>` : ''}
+                                ${isOverdue ? `<span class="shrink-0" style="font-size:8px;padding:1px 4px;border-radius:4px;background:rgba(248,113,113,.15);color:var(--red);font-weight:600">ATRASADO</span>` : ''}
+                            </p>
+                            <p class="text-[10px] truncate" style="color:var(--sub)">${iv ? (isCr ? 'Estorno à vista' : 'À vista') + ' — ' + fmt(c.valorParcela, true) : c.qtdParcelas + (isCr ? 'x (Estorno parcelado) de ' : 'x de ') + fmt(c.valorParcela, true) + ' — Total: ' + fmt(c.valorParcela * c.qtdParcelas, true)}</p>
+                            ${!iv ? `<p class="truncate" style="font-size:9px;color:${(act || antMes > 0) ? (isCr ? 'var(--green)' : 'var(--accent2)') : 'var(--sub)'}">${act ? 'Parcela ' + cur + '/' + len : (fin ? 'Finalizado' : 'Inicia ' + ml(c.dataPrimeiraParcela))}${antMes > 0 ? ` (+${antMes} antecipadas)` : ''}</p>` : ''}
+                            ${(act || antMes > 0) && !iv ? `<div class="pbar mt-1" style="width:100px;max-width:100%"><div class="pfill" style="width:${pct}%;${isCr ? 'background:var(--green)' : ''}"></div></div>` : ''}
+                        </div>
                     </div>
-                    <div class="lr-actions">
-                        ${canAnticipate ? `<button class="bi shrink-0" title="Antecipar Última Parcela" onclick="App.anteciparParcela('${c.id}')"><svg width="14" height="14" fill="none" stroke="var(--cyan,#22d3ee)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>` : ''}
-                        <button class="bi shrink-0" title="Editar" onclick="App.openCarModal('${c.id}')">${IC.edit}</button>
-                        <button class="bi shrink-0" title="Duplicar" onclick="App.dupCar('${c.id}')">${IC.dup}</button>
-                        <button class="bi shrink-0" title="Excluir" onclick="App.delCar('${c.id}')">${IC.trash}</button>
-                    </div>
-                    <div class="lr-value flex items-center shrink-0">
+                    <div class="lr-value flex items-center gap-2 shrink-0 ml-auto mr-1">
                         ${isPaidC ? `<span class="badge-paid">PAGO</span>` : ''}
                         ${isOverdue ? `<span class="badge badge-red shrink-0" style="font-size:9px">${fmt(valMes, true)}</span>` : `<span class="badge ${isCr ? 'badge-green' : ((act || antMes > 0) || (iv && !fin) ? 'badge-orange' : (fin ? 'badge-green' : 'badge-gray'))} shrink-0" style="font-size:9px">
                             ${isCr ? 'CRÉDITO' : (iv ? (fin ? 'Pago' : fmt(valMes, true)) : ((act || antMes > 0) ? fmt(valMes, true) : (fin ? 'Pago' : 'Pendente')))}
                         </span>`}
                     </div>
+                </div>
+                <div class="lr-actions">
+                    ${canAnticipate ? `<button class="bi shrink-0" title="Antecipar Última Parcela" onclick="App.anteciparParcela('${c.id}')"><svg width="14" height="14" fill="none" stroke="var(--cyan,#22d3ee)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>` : ''}
+                    <button class="bi shrink-0" title="Editar" onclick="App.openCarModal('${c.id}')">${IC.edit}</button>
+                    <button class="bi shrink-0" title="Duplicar" onclick="App.dupCar('${c.id}')">${IC.dup}</button>
+                    <button class="bi shrink-0" title="Excluir" onclick="App.delCar('${c.id}')">${IC.trash}</button>
                 </div>
             </div>`;
         };
@@ -1072,7 +1103,7 @@ ${subCardHtml}
     },
 
     // PROJETOS
-    togProjF() { const t = document.getElementById('pTipo').value; document.getElementById('pMeta').style.display = t === 'meta_continua' ? 'block' : 'none'; document.getElementById('pEvento').style.display = t === 'evento_unico' ? 'block' : 'none' },
+    togProjF() { const t = document.getElementById('pTipo').value; document.getElementById('pMeta').style.display = (t === 'meta_continua' || t === 'oportunidade') ? 'block' : 'none'; document.getElementById('pEvento').style.display = t === 'evento_unico' ? 'block' : 'none' },
     openProjModal(id) {
         const m = document.getElementById('mProj');
         if (id) {
@@ -1114,10 +1145,13 @@ ${subCardHtml}
     openDivModal(pid) { document.getElementById('dvPid').value = pid; mpDiv.setVal(this.curM); document.getElementById('dvVal').value = ''; document.getElementById('mDiv').classList.add('active') },
     saveDivVal(e) {
         e.preventDefault(); const d = D.get(), pid = document.getElementById('dvPid').value, mes = mpDiv.getVal(), val = +document.getElementById('dvVal').value;
-        const p = d.projetos.find(x => x.id === pid); if (!p) return; if (!p.valores) p.valores = {}; if (val === 0) delete p.valores[mes]; else p.valores[mes] = val;
+        const p = d.projetos.find(x => x.id === pid); if (!p) return; if (!p.valores) p.valores = {};
+        const paidKey = `${pid}_${mes}`;
+        if (val === 0) { delete p.valores[mes]; delete d.projetosPagos[paidKey]; }
+        else { p.valores[mes] = val; d.projetosPagos[paidKey] = true; }
         D.save(); this.closeM('mDiv'); this.renderAll(); toast('Valor definido!');
     },
-    async delDivV(pid, mes) { const d = D.get(), p = d.projetos.find(x => x.id === pid); if (p && p.valores) { delete p.valores[mes]; D.save(); this.renderAll(); toast('Removido', '#f87171', 'error') } },
+    async delDivV(pid, mes) { const d = D.get(), p = d.projetos.find(x => x.id === pid); if (p && p.valores) { delete p.valores[mes]; delete d.projetosPagos[`${pid}_${mes}`]; D.save(); this.renderAll(); toast('Removido', '#f87171', 'error') } },
     openAporteModal(pid) {
         const d = D.get(), p = d.projetos.find(x => x.id === pid);
         document.getElementById('apPid').value = pid;
@@ -1129,12 +1163,14 @@ ${subCardHtml}
         e.preventDefault(); const d = D.get(), pid = document.getElementById('apPid').value, mes = mpAporte.getVal(), val = +document.getElementById('apVal').value;
         const p = d.projetos.find(x => x.id === pid); if (!p) return;
         if (!p.aportes) p.aportes = {};
-        if (val === 0) delete p.aportes[mes]; else p.aportes[mes] = val;
+        const paidKey = `${pid}_${mes}`;
+        if (val === 0) { delete p.aportes[mes]; delete d.projetosPagos[paidKey]; }
+        else { p.aportes[mes] = val; d.projetosPagos[paidKey] = true; }
         D.save(); this.closeM('mAporte'); this.renderAll(); toast(val >= 0 ? 'Aporte registrado!' : 'Retirada registrada!');
     },
     async delAporte(pid, mes) {
         const d = D.get(), p = d.projetos.find(x => x.id === pid);
-        if (p && p.aportes) { delete p.aportes[mes]; D.save(); this.renderAll(); toast('Aporte removido', '#f87171', 'error') }
+        if (p && p.aportes) { delete p.aportes[mes]; delete d.projetosPagos[`${pid}_${mes}`]; D.save(); this.renderAll(); toast('Aporte removido', '#f87171', 'error') }
     },
     openRendModal(pid) {
         document.getElementById('rdPid').value = pid;
@@ -1226,11 +1262,13 @@ ${p.objetivo ? `<div class="pbar mb-1" style="height:8px"><div class="pfill" sty
 
 ${suggested > 0 ? `<div class="mt-3 p-2 rounded-lg" style="background:rgba(99,102,241,0.05);border:1px dashed rgba(99,102,241,0.2)"><p style="font-size:10px;color:var(--sub);margin-bottom:2px">Aporte sugerido para atingir a meta:</p><p class="font-bold text-xs" style="color:var(--accent)">${fmt(suggested, true)} / mês</p></div>` : ''}
 
-<div style="margin-top:10px;padding:8px;border-radius:10px;background:var(--bg3);font-size:10px">
-    <p class="font-bold mb-1" style="color:var(--accent)">Simulador de Prazo</p>
+<details style="margin-top:10px">
+  <summary style="padding:8px;border-radius:10px;background:var(--bg3);font-size:10px;cursor:pointer;font-weight:700;color:var(--accent);list-style:none;display:flex;align-items:center;gap:4px"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>Simulador de Prazo</summary>
+  <div style="padding:8px;border-radius:0 0 10px 10px;background:var(--bg3);font-size:10px;margin-top:-2px">
     <div class="flex items-center justify-between"><span style="color:var(--sub)">Aporte Extra (R$):</span><input class="fi" type="number" step="10" value="0" style="width:60px;height:24px;padding:2px 6px;font-size:10px" oninput="App.simProj('${p.id}', this.value, this.parentElement.nextElementSibling.querySelector('b'))"></div>
     <div class="mt-1" style="color:var(--sub)">Tempo restante: <b style="color:var(--text)">${p.objetivo && ac < p.objetivo ? 'Calculando...' : 'Meta atingida'}</b></div>
-</div>
+  </div>
+</details>
 
 <div class="flex gap-2">
     <button class="btn btn-g btn-sm flex-1 mt-3" onclick="App.openAporteModal('${p.id}')">${IC.plus} Aporte</button>
@@ -1255,11 +1293,11 @@ ${aportesEvArr.length ? `<div style="margin-top:8px"><button type="button" class
 </div>`;
             }
             const isPaidP = d.projetosPagos && d.projetosPagos[`${p.id}_${this.curM}`];
-            return `<div class="card card-h stagger" style="border-left:4px solid; border-image: ${inf.g} 1; animation-delay:${idx * .06}s; ${isPaidP ? 'opacity:0.7' : ''}"><div class="flex items-center justify-between min-w-0 gap-2">
+            return `<div class="card card-h stagger" style="border-left:4px solid; border-image: ${inf.g} 1; animation-delay:${idx * .06}s; ${isPaidP ? 'opacity:0.85' : ''}"><div class="flex items-center justify-between min-w-0 gap-2">
     <div class="flex items-center gap-2 flex-1 min-w-0">
       <button class="paid-toggle ${isPaidP ? 'is-paid' : ''}" onclick="event.stopPropagation();App.togPaidProj('${p.id}', '${this.curM}')" title="${isPaidP ? 'Desmarcar pago' : 'Marcar como pago'}"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></button>
       <div class="min-w-0">
-        <p class="font-bold text-sm truncate uppercase tracking-wider flex items-center gap-2" style="${isPaidP ? 'text-decoration:line-through;opacity:0.6' : ''}">${p.nome}</p>
+        <p class="font-bold text-sm truncate uppercase tracking-wider flex items-center gap-2" style="${isPaidP ? 'opacity:0.6' : ''}">${p.nome}</p>
         <div class="flex items-center gap-2">
           <span class="badge ${isPaidP ? 'badge-green' : inf.b} truncate flex shrink-0 w-fit">${isPaidP ? 'REALIZADO' : inf.l}</span>
           ${isPaidP ? `<span class="badge-paid">PAGO</span>` : ''}
@@ -1274,7 +1312,7 @@ ${aportesEvArr.length ? `<div style="margin-top:8px"><button type="button" class
 
     cfmR(v) { document.getElementById('cfmDlg').classList.remove('active'); if (_cfmCb) { _cfmCb(v); _cfmCb = null } },
     exportJSON() { const d = D.get(), b = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `financeiro_${new Date().toISOString().slice(0, 10)}.json`; a.click(); toast('Exportado!') },
-    importJSON(e) { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = ev => { try { const d = JSON.parse(ev.target.result); D.reset(d); D.load(); document.getElementById('siInput').value = d.saldoInicialBase || ''; this.renderAll(); toast('Importado!') } catch (err) { toast('Arquivo inválido', '#f87171', 'error') } }; r.readAsText(f); e.target.value = '' },
+    importJSON(e) { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = ev => { try { const d = JSON.parse(ev.target.result); D.reset(d); D.load(); const siInput = document.getElementById('siInput'); if (siInput) siInput.value = d.saldoInicialBase || ''; this.renderAll(); toast('Importado!') } catch (err) { toast('Arquivo inválido', '#f87171', 'error') } }; r.readAsText(f); e.target.value = '' },
     toggleTheme() {
         const isLight = document.body.classList.toggle('light-theme');
         localStorage.setItem('fintrackr_theme', isLight ? 'light' : 'dark');
